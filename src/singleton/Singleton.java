@@ -9,6 +9,7 @@ package singleton;
  */
 
 // 기본 Singleton
+// 멀티쓰레드 환경에서 여러개의 인스턴스 생성됨
 public class Singleton {
     private static Singleton instance;
 
@@ -17,11 +18,19 @@ public class Singleton {
 
     public static Singleton getInstance() {
         if (instance == null) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             instance = new Singleton();
         }
 
+        System.out.println(instance.hashCode());
         return instance;
     }
+
 }
 
 // synchronized 키워드 사용
@@ -34,6 +43,12 @@ class Singleton2 {
     //멀티 쓰레드 환경에서 동시접근 차단
     public static Singleton2 getInstance() {
         if (instance == null) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             synchronized (Singleton2.class) {
                 if (instance == null) {
                     instance = new Singleton2();
@@ -41,20 +56,28 @@ class Singleton2 {
             }
         }
 
+        System.out.println(instance.hashCode());
         return instance;
     }
 }
 
 // Holder를 통한 초기화
 class Singleton3 {
-    public Singleton3() {
+    private Singleton3() {
     }
 
-    private static class Holder{
+    private static class Holder {
         public static final Singleton3 INSTANCE = new Singleton3();
     }
 
-    public static Singleton3 getInstance(){
+    public static Singleton3 getInstance() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(Holder.INSTANCE.hashCode());
         return Holder.INSTANCE;
     }
 }
