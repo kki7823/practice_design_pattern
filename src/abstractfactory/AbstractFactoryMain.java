@@ -2,7 +2,7 @@ package abstractfactory;
 /*
     AbstractFactory
     - what : 추상화된 Factory를 구현, 예를 들어 동일한 부품구조를 가진 서로 다른 회사의 제품을 만들때,
-    Factory를 각 회사별로 구현
+             Factory를 각 회사별로 구현
  */
 
 public class AbstractFactoryMain {
